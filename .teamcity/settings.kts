@@ -29,13 +29,14 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2023.05"
 
 project {
-
-    buildType(Bc2)
-    buildType(DefaultBranchBuild)
+    buildType(BC5)
+    buildType(BC3)
+    buildType(BC0)
 }
 
-object Bc2 : BuildType({
-    name = "BC2"
+// 3rd build config
+object BC3 : BuildType({
+    name = "BC3"
 
     artifactRules = "output.txt"
 
@@ -76,7 +77,7 @@ object Bc2 : BuildType({
     }
 
     dependencies {
-        dependency(DefaultBranchBuild) {
+        dependency(BC0) {
             snapshot {
                 reuseBuilds = ReuseBuilds.NO
             }
@@ -88,8 +89,9 @@ object Bc2 : BuildType({
     }
 })
 
-object DefaultBranchBuild : BuildType({
-    name = "BC1"
+// 1st build config
+object BC0 : BuildType({
+    name = "BC0"
 
     artifactRules = "output.txt"
 
