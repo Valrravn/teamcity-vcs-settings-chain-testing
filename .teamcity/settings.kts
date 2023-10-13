@@ -29,67 +29,16 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2023.05"
 
 project {
-    buildType(BcFinalConfig)
-    buildType(BcPostConfig)
-    buildType(BcPreConfig)
-    buildType(Bc2)
-    buildType(DefaultBranchBuild)
+    buildType(BC5)
+    buildType(BC4)
+    buildType(BC3)
+    buildType(BC2)
+    buildType(BC0)
 }
 
-// 1st config
-object DefaultBranchBuild : BuildType({
-    name = "BC1"
-
-    artifactRules = "output.txt"
-
-    vcs {
-        root(DslContext.settingsRoot)
-    }
-
-    steps {
-        script {
-            name = "Prepare File"
-            id = "Prepare_File"
-            scriptContent = """
-                rm output.txt
-                touch output.txt
-            """.trimIndent()
-        }
-        python {
-            name = "PyScript"
-            id = "PyScript"
-            command = script {
-                content = """
-                    print("Running BC1 configuration...")
-                    
-                    
-                    with open("output.txt", "a+") as openFile:
-                        openFile.seek(0)
-                        # If file is not empty then append '\n'
-                        data = openFile.read(100)
-                        if len(data) > 0 :
-                            openFile.write("\n")
-                        # Append text at the end of file
-                        openFile.write("Running BC1 configuration...")
-                """.trimIndent()
-            }
-        }
-    }
-
-    triggers {
-        vcs {
-        }
-    }
-
-    features {
-        perfmon {
-        }
-    }
-})
-
-// 2nd config
-object BcPreConfig : BuildType({
-    name = "BcPreConfig"
+// 5th build config
+object BC5 : BuildType({
+    name = "BC5"
 
     artifactRules = "output.txt"
 
@@ -103,7 +52,7 @@ object BcPreConfig : BuildType({
             id = "PyScript"
             command = script {
                 content = """
-                    print("Running BcPreConfig configuration...")
+                    print("Running BC5 configuration...")
                     
                     
                     with open("output.txt", "a+") as openFile:
@@ -113,7 +62,7 @@ object BcPreConfig : BuildType({
                         if len(data) > 0 :
                             openFile.write("\n")
                         # Append text at the end of file
-                        openFile.write("Running BcPreConfig configuration...")
+                        openFile.write("Running BC5 configuration (main branch)...")
                 """.trimIndent()
             }
         }
@@ -130,7 +79,62 @@ object BcPreConfig : BuildType({
     }
 
     dependencies {
-        dependency(DefaultBranchBuild) {
+        dependency(BC4) {
+            snapshot {
+                reuseBuilds = ReuseBuilds.NO
+            }
+
+            artifacts {
+                artifactRules = "output.txt"
+            }
+        }
+    }
+})
+
+// 4th build config
+object BC4 : BuildType({
+    name = "BC4"
+
+    artifactRules = "output.txt"
+
+    vcs {
+        root(DslContext.settingsRoot)
+    }
+
+    steps {
+        python {
+            name = "PyScript"
+            id = "PyScript"
+            command = script {
+                content = """
+                    print("Running BC4 configuration...")
+                    
+                    
+                    with open("output.txt", "a+") as openFile:
+                        openFile.seek(0)
+                        # If file is not empty then append '\n'
+                        data = openFile.read(100)
+                        if len(data) > 0 :
+                            openFile.write("\n")
+                        # Append text at the end of file
+                        openFile.write("Running BC4 configuration (custom branch)...")
+                """.trimIndent()
+            }
+        }
+    }
+
+    triggers {
+        vcs {
+        }
+    }
+
+    features {
+        perfmon {
+        }
+    }
+
+    dependencies {
+        dependency(BC3) {
             snapshot {
                 reuseBuilds = ReuseBuilds.NO
             }
@@ -143,10 +147,63 @@ object BcPreConfig : BuildType({
 })
 
 
+// 3rd build config
+object BC3 : BuildType({
+    name = "BC3"
 
+    artifactRules = "output.txt"
 
-// 3rd config
-object Bc2 : BuildType({
+    vcs {
+        root(DslContext.settingsRoot)
+    }
+
+    steps {
+        python {
+            name = "PyScript"
+            id = "PyScript"
+            command = script {
+                content = """
+                    print("Running BC3 configuration...")
+                    
+                    
+                    with open("output.txt", "a+") as openFile:
+                        openFile.seek(0)
+                        # If file is not empty then append '\n'
+                        data = openFile.read(100)
+                        if len(data) > 0 :
+                            openFile.write("\n")
+                        # Append text at the end of file
+                        openFile.write("Running BC3 configuration (main branch)...")
+                """.trimIndent()
+            }
+        }
+    }
+
+    triggers {
+        vcs {
+        }
+    }
+
+    features {
+        perfmon {
+        }
+    }
+
+    dependencies {
+        dependency(BC2) {
+            snapshot {
+                reuseBuilds = ReuseBuilds.NO
+            }
+
+            artifacts {
+                artifactRules = "output.txt"
+            }
+        }
+    }
+})
+
+// 2nd build config
+object BC2 : BuildType({
     name = "BC2"
 
     artifactRules = "output.txt"
@@ -171,7 +228,7 @@ object Bc2 : BuildType({
                         if len(data) > 0 :
                             openFile.write("\n")
                         # Append text at the end of file
-                        openFile.write("Running BC2 configuration...")
+                        openFile.write("Running BC2 configuration (custom branch)...")
                 """.trimIndent()
             }
         }
@@ -188,7 +245,7 @@ object Bc2 : BuildType({
     }
 
     dependencies {
-        dependency(BcPreConfig) {
+        dependency(BC0) {
             snapshot {
                 reuseBuilds = ReuseBuilds.NO
             }
@@ -200,9 +257,9 @@ object Bc2 : BuildType({
     }
 })
 
-// 4th config
-object BcPostConfig : BuildType({
-    name = "BcPostConfig"
+// 1st build config
+object BC0 : BuildType({
+    name = "BC0"
 
     artifactRules = "output.txt"
 
@@ -211,12 +268,20 @@ object BcPostConfig : BuildType({
     }
 
     steps {
+        script {
+            name = "Prepare File"
+            id = "Prepare_File"
+            scriptContent = """
+                rm output.txt
+                touch output.txt
+            """.trimIndent()
+        }
         python {
             name = "PyScript"
             id = "PyScript"
             command = script {
                 content = """
-                    print("Running BcPostConfig configuration...")
+                    print("Running BC0 configuration...")
                     
                     
                     with open("output.txt", "a+") as openFile:
@@ -226,7 +291,7 @@ object BcPostConfig : BuildType({
                         if len(data) > 0 :
                             openFile.write("\n")
                         # Append text at the end of file
-                        openFile.write("Running BcPostConfig configuration...")
+                        openFile.write("Running BC0 configuration (main branch)...")
                 """.trimIndent()
             }
         }
@@ -241,72 +306,4 @@ object BcPostConfig : BuildType({
         perfmon {
         }
     }
-
-    dependencies {
-        dependency(Bc2) {
-            snapshot {
-                reuseBuilds = ReuseBuilds.NO
-            }
-
-            artifacts {
-                artifactRules = "output.txt"
-            }
-        }
-    }
 })
-
-// 5th config
-object BcFinalConfig : BuildType({
-    name = "BcFinalConfig"
-
-    artifactRules = "output.txt"
-
-    vcs {
-        root(DslContext.settingsRoot)
-    }
-
-    steps {
-        python {
-            name = "PyScript"
-            id = "PyScript"
-            command = script {
-                content = """
-                    print("Running BcFinalConfig configuration...")
-                    
-                    
-                    with open("output.txt", "a+") as openFile:
-                        openFile.seek(0)
-                        # If file is not empty then append '\n'
-                        data = openFile.read(100)
-                        if len(data) > 0 :
-                            openFile.write("\n")
-                        # Append text at the end of file
-                        openFile.write("Running BcFinalConfig configuration...")
-                """.trimIndent()
-            }
-        }
-    }
-
-    triggers {
-        vcs {
-        }
-    }
-
-    features {
-        perfmon {
-        }
-    }
-
-    dependencies {
-        dependency(BcPostConfig) {
-            snapshot {
-                reuseBuilds = ReuseBuilds.NO
-            }
-
-            artifacts {
-                artifactRules = "output.txt"
-            }
-        }
-    }
-})
-
