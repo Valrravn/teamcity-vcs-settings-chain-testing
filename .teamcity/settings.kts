@@ -34,6 +34,62 @@ project {
     buildType(BC0)
 }
 
+// 5th build config
+object BC5 : BuildType({
+    name = "BC5"
+
+    artifactRules = "output.txt"
+
+    vcs {
+        root(DslContext.settingsRoot)
+    }
+
+    steps {
+        python {
+            name = "PyScript"
+            id = "PyScript"
+            command = script {
+                content = """
+                    print("Running BC5 configuration...")
+                    
+                    
+                    with open("output.txt", "a+") as openFile:
+                        openFile.seek(0)
+                        # If file is not empty then append '\n'
+                        data = openFile.read(100)
+                        if len(data) > 0 :
+                            openFile.write("\n")
+                        # Append text at the end of file
+                        openFile.write("Running BC5 configuration (main branch)...")
+                """.trimIndent()
+            }
+        }
+    }
+
+    triggers {
+        vcs {
+        }
+    }
+
+    features {
+        perfmon {
+        }
+    }
+
+    dependencies {
+        dependency(BC3) {
+            snapshot {
+                reuseBuilds = ReuseBuilds.NO
+            }
+
+            artifacts {
+                artifactRules = "output.txt"
+            }
+        }
+    }
+})
+
+
 // 3rd build config
 object BC3 : BuildType({
     name = "BC3"
@@ -50,7 +106,7 @@ object BC3 : BuildType({
             id = "PyScript"
             command = script {
                 content = """
-                    print("Running BC2 configuration...")
+                    print("Running BC3 configuration...")
                     
                     
                     with open("output.txt", "a+") as openFile:
@@ -60,7 +116,7 @@ object BC3 : BuildType({
                         if len(data) > 0 :
                             openFile.write("\n")
                         # Append text at the end of file
-                        openFile.write("Running BC2 configuration...")
+                        openFile.write("Running BC3 configuration (main branch)...")
                 """.trimIndent()
             }
         }
@@ -113,7 +169,7 @@ object BC0 : BuildType({
             id = "PyScript"
             command = script {
                 content = """
-                    print("Running BC1 configuration...")
+                    print("Running BC0 configuration...")
                     
                     
                     with open("output.txt", "a+") as openFile:
@@ -123,7 +179,7 @@ object BC0 : BuildType({
                         if len(data) > 0 :
                             openFile.write("\n")
                         # Append text at the end of file
-                        openFile.write("Running BC1 configuration...")
+                        openFile.write("Running BC0 configuration (main branch)...")
                 """.trimIndent()
             }
         }
