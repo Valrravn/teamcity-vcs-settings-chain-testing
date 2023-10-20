@@ -37,7 +37,7 @@ changeBuildType(RelativeId("BC5")) {
             script {
                 name = "WriteLine"
                 id = "WriteLine"
-                scriptContent = """echo "Running BC5 config" > output.txt"""
+                scriptContent = """echo "Running BC5 config" >> output.txt"""
             }
         }
         items.removeAt(1)
