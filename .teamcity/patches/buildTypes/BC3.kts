@@ -2,6 +2,7 @@ package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildSteps.python
+import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.ui.*
 
 /*
@@ -32,6 +33,13 @@ changeBuildType(RelativeId("BC3")) {
         }
     }
     steps {
-        items.removeAt(0)
+        insert(0) {
+            script {
+                name = "WriteLine"
+                id = "WriteLine"
+                scriptContent = """echo "Running BC0 config" >> output.txt"""
+            }
+        }
+        items.removeAt(1)
     }
 }
