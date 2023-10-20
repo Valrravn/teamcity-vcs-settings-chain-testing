@@ -41,6 +41,13 @@ changeBuildType(RelativeId("BC0")) {
         }
     }
     steps {
-        items.removeAt(1)
+        insert(1) {
+            script {
+                name = "WriteLine"
+                id = "WriteLine"
+                scriptContent = """echo "Running BC0 config" > output.txt"""
+            }
+        }
+        items.removeAt(2)
     }
 }
