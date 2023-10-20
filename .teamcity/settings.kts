@@ -47,24 +47,10 @@ object BC5 : BuildType({
     }
 
     steps {
-        python {
-            name = "PyScript"
-            id = "PyScript"
-            command = script {
-                content = """
-                    print("Running BC5 configuration...")
-                    
-                    
-                    with open("output.txt", "a+") as openFile:
-                        openFile.seek(0)
-                        # If file is not empty then append '\n'
-                        data = openFile.read(100)
-                        if len(data) > 0 :
-                            openFile.write("\n")
-                        # Append text at the end of file
-                        openFile.write("Running BC5 configuration (main branch)...")
-                """.trimIndent()
-            }
+        script {
+                name = "WriteLine"
+                id = "WriteLine5"
+                scriptContent = """echo "Running BC5 config" >> output.txt"""
         }
     }
 
@@ -102,24 +88,10 @@ object BC4 : BuildType({
     }
 
     steps {
-        python {
-            name = "PyScript"
-            id = "PyScript"
-            command = script {
-                content = """
-                    print("Running BC4 configuration...")
-                    
-                    
-                    with open("output.txt", "a+") as openFile:
-                        openFile.seek(0)
-                        # If file is not empty then append '\n'
-                        data = openFile.read(100)
-                        if len(data) > 0 :
-                            openFile.write("\n")
-                        # Append text at the end of file
-                        openFile.write("Running BC4 configuration (custom branch)...")
-                """.trimIndent()
-            }
+        script {
+                name = "WriteLine"
+                id = "WriteLine4"
+                scriptContent = """echo "Running virtual BC4 config" >> output.txt"""
         }
     }
 
@@ -158,24 +130,10 @@ object BC3 : BuildType({
     }
 
     steps {
-        python {
-            name = "PyScript"
-            id = "PyScript"
-            command = script {
-                content = """
-                    print("Running BC3 configuration...")
-                    
-                    
-                    with open("output.txt", "a+") as openFile:
-                        openFile.seek(0)
-                        # If file is not empty then append '\n'
-                        data = openFile.read(100)
-                        if len(data) > 0 :
-                            openFile.write("\n")
-                        # Append text at the end of file
-                        openFile.write("Running BC3 configuration (main branch)...")
-                """.trimIndent()
-            }
+        script {
+                name = "WriteLine"
+                id = "WriteLine3"
+                scriptContent = """echo "Running BC3 config" >> output.txt"""
         }
     }
 
@@ -213,24 +171,10 @@ object BC2 : BuildType({
     }
 
     steps {
-        python {
-            name = "PyScript"
-            id = "PyScript"
-            command = script {
-                content = """
-                    print("Running BC2 configuration...")
-                    
-                    
-                    with open("output.txt", "a+") as openFile:
-                        openFile.seek(0)
-                        # If file is not empty then append '\n'
-                        data = openFile.read(100)
-                        if len(data) > 0 :
-                            openFile.write("\n")
-                        # Append text at the end of file
-                        openFile.write("Running BC2 configuration (custom branch)...")
-                """.trimIndent()
-            }
+        script {
+                name = "WriteLine"
+                id = "WriteLine2"
+                scriptContent = """echo "Running virtual BC2 config" >> output.txt"""
         }
     }
 
@@ -276,24 +220,10 @@ object BC0 : BuildType({
                 touch output.txt
             """.trimIndent()
         }
-        python {
-            name = "PyScript"
-            id = "PyScript"
-            command = script {
-                content = """
-                    print("Running BC0 configuration...")
-                    
-                    
-                    with open("output.txt", "a+") as openFile:
-                        openFile.seek(0)
-                        # If file is not empty then append '\n'
-                        data = openFile.read(100)
-                        if len(data) > 0 :
-                            openFile.write("\n")
-                        # Append text at the end of file
-                        openFile.write("Running BC0 configuration (main branch)...")
-                """.trimIndent()
-            }
+        script {
+                name = "WriteLine"
+                id = "WriteLine0"
+                scriptContent = """echo "Running BC5 config" > output.txt"""
         }
     }
 
