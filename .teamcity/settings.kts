@@ -38,7 +38,7 @@ project {
 object BC5 : BuildType({
     name = "BC5"
 
-    artifactRules = "output.txt"
+    artifactRules = "test/customoutput.txt"
 
     vcs {
         root(DslContext.settingsRoot)
@@ -69,7 +69,7 @@ object BC5 : BuildType({
             }
 
             artifacts {
-                artifactRules = "output.txt"
+                artifactRules = "test/customoutput.txt"
             }
         }
     }
@@ -80,7 +80,7 @@ object BC5 : BuildType({
 object BC3 : BuildType({
     name = "BC3"
 
-    artifactRules = "output.txt"
+    artifactRules = "output.txt=>test/customoutput.txt"
 
     vcs {
         root(DslContext.settingsRoot)
@@ -111,7 +111,7 @@ object BC3 : BuildType({
             }
 
             artifacts {
-                artifactRules = "output.txt"
+                artifactRules = "test/customoutput.txt"
             }
         }
     }
@@ -121,7 +121,7 @@ object BC3 : BuildType({
 object BC0 : BuildType({
     name = "BC0"
 
-    artifactRules = "output.txt"
+    artifactRules = "output.txt=>test/customoutput.txt"
 
     vcs {
         root(DslContext.settingsRoot)
